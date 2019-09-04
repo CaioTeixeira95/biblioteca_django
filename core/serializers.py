@@ -17,6 +17,16 @@ class LoanSerializer(serializers.ModelSerializer):
         model = Loan
         fields = '__all__'
 
+    def create(self, validated_data):
+
+        loan, created = Loan.objects.get_or_create(
+            id_book=validated_data.get('id_book'),
+            is_devolved=False,
+            defaults=validated_data
+        )
+
+        return loan
+
 
 class UserSerializer(serializers.ModelSerializer):
 
